@@ -131,6 +131,10 @@
     [[previewLayer connection] setVideoOrientation:AVCaptureVideoOrientationPortrait]; // 设置视频的朝向
     [self.view.layer addSublayer:previewLayer];
 #endif
+    
+    #pragma mark -- SinGL
+    sinGL = [[SinGL alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:sinGL];
 
     #pragma mark -- Button init
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -143,10 +147,6 @@
     [backButton setTitle:@"返回" forState:UIControlStateNormal];
     [backButton addTarget:self action:@selector(backButtonEvent:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
-    
-    #pragma mark -- Sin
-    sinGL = [[SinGL alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:sinGL];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

@@ -191,6 +191,8 @@ typedef void (*GLLogFunction) (GLuint program, GLsizei bufsize, GLsizei* length,
     
     if (program)
         glDeleteProgram(program);
+    
+    NSLog(@"GLProgram dealloc");
        
 }
 // END:dealloc

@@ -347,7 +347,20 @@ typedef enum {
 }
 
 - (void)dealloc {
+    displayProgram = nil;
     
+    [self destroyDisplayFramebuffer];
+    
+    [self cleanUpTexture];
+    
+    if(textureCache) {
+        CFRelease(textureCache);
+    }
+    
+    if ([EAGLContext currentContext] == eaglContext) {
+        [EAGLContext setCurrentContext:nil];
+    }
+    eaglContext = nil;
 }
 
 @end
