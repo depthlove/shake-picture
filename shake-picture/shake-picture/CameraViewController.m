@@ -107,11 +107,13 @@
     }
 
     #pragma mark -- AVCaptureVideoPreviewLayer init
+#if 0
     previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:captureSession];
     previewLayer.frame = self.view.layer.bounds;
     previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill; // 设置预览时的视频缩放方式
     [[previewLayer connection] setVideoOrientation:AVCaptureVideoOrientationPortrait]; // 设置视频的朝向
     [self.view.layer addSublayer:previewLayer];
+#endif
 
     #pragma mark -- Button init
     UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -126,7 +128,7 @@
     [self.view addSubview:backButton];
     
     #pragma mark -- Sin
-    sinGL = [[SinGL alloc] initWithFrame:CGRectMake(0, 0, 180, 320)];
+    sinGL = [[SinGL alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:sinGL];
 }
 
