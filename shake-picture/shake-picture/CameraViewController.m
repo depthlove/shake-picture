@@ -55,6 +55,18 @@
     return size;
 }
 
+- (AVCaptureDevice *)cameraWithPosition:(AVCaptureDevicePosition)pos {
+    AVCaptureDevicePosition position = (AVCaptureDevicePosition)pos;
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    for (AVCaptureDevice *device in devices) {
+        if ([device position] == position) {
+            return device;
+        }
+    }
+    
+    return nil;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -70,8 +82,13 @@
     captureSession = [[AVCaptureSession alloc] init];
     captureSession.sessionPreset = sessionPreset;
 
-    captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-
+    AVCaptureDevicePosition preferredPosition = AVCaptureDevicePositionFront;
+    AVCaptureDevice *captureDevice =[self cameraWithPosition:preferredPosition];
+    if (!captureDevice) {
+        NSLog(@"CameraSource: There is no videoDevice found in position: %@", (AVCaptureDevicePositionFront == preferredPosition) ? @"front" : @"back");
+        return;
+    }
+    
     NSError *error = nil;
     captureDeviceInput = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:&error];
 

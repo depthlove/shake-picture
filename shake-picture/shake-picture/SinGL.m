@@ -223,7 +223,18 @@ typedef enum {
     // Create a CVOpenGLESTexture from the CVImageBuffer
     size_t frameWidth = CVPixelBufferGetWidth(pixelBuffer);
     size_t frameHeight = CVPixelBufferGetHeight(pixelBuffer);
-    CVReturn ret = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache, pixelBuffer, NULL, GL_TEXTURE_2D, GL_RGBA, frameWidth, frameHeight, GL_BGRA, GL_UNSIGNED_BYTE, 0, &texture);
+    CVReturn ret = CVOpenGLESTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
+                                                                textureCache,
+                                                                pixelBuffer,
+                                                                NULL,
+                                                                GL_TEXTURE_2D,
+                                                                GL_RGBA,
+                                                                (GLsizei)frameWidth,
+                                                                (GLsizei)frameHeight,
+                                                                GL_BGRA,
+                                                                GL_UNSIGNED_BYTE,
+                                                                0,
+                                                                &texture);
     if (ret) {
         NSLog(@"CVOpenGLESTextureCacheCreateTextureFromImage ret: %d", ret);
     }
@@ -240,6 +251,7 @@ typedef enum {
         -1.0f,  1.0f,
         1.0f,  1.0f,
     };
+    
     glVertexAttribPointer(displayPositionAttribute, 2, GL_FLOAT, 0, 0, imageVertices);
     glVertexAttribPointer(displayTextureCoordinateAttribute, 2, GL_FLOAT, 0, 0, [self textureCoordinatesForRotation:inputRotation]);
     
